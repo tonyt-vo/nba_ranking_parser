@@ -31,4 +31,5 @@ with open('nba_rankings.csv', 'wb') as csvfile:
   table_rows = table.find_all('tr')
   for row in table_rows:
     row_content = map(get_text, row.find_all('td'))
-    writer.writerow(row_content)
+    if len(row_content) > 0:
+      writer.writerow(row_content)
