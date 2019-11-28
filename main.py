@@ -7,8 +7,8 @@ def get_text(cell):
   return cell.get_text()
 
 # Open up our csv
-with open('nba_rankings.csv', 'wb') as csvfile:
-  writer = csv.writer(csvfile, delimiter=',')
+with open('nba_rankings.csv', 'w') as csvfile:
+  writer = csv.writer(csvfile, delimiter=',', lineterminator="\n")
 
   # Fetch the html
   nba_url = 'https://www.teamrankings.com/nba/stat/2nd-half-points-per-game?date=2019-11-26'
@@ -30,6 +30,6 @@ with open('nba_rankings.csv', 'wb') as csvfile:
   # For each row, append its contents
   table_rows = table.find_all('tr')
   for row in table_rows:
-    row_content = map(get_text, row.find_all('td'))
+    row_content = list(map(get_text, row.find_all('td')))
     if len(row_content) > 0:
       writer.writerow(row_content)
